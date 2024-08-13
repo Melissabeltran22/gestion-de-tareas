@@ -22,6 +22,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     users.push({ name, email, password, department });
     localStorage.setItem('users', JSON.stringify(users));
 
-    alert('Usuario registrado exitosamente');
+    alert('Usuario registrado exitosamente!');
+
     window.location.href = 'login.html'; // Redirige a la página de inicio de sesión
 });
