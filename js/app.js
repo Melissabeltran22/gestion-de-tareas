@@ -26,3 +26,21 @@ document.getElementById('registerForm').addEventListener('submit', function(even
 
     window.location.href = 'login.html'; // Redirige a la página de inicio de sesión
 });
+
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    let user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        alert('Inicio de sesión exitoso');
+        window.location.href = 'dashboard.html'; // Redirige al panel de control
+    } else {
+        alert('Credenciales incorrectas. Inténtalo de nuevo.');
+    }
+});
