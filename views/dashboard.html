@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <h2>Panel de Control</h2>
+    <button id="logoutButton">Cerrar Sesión</button>
+    <h3>Tus Tareas</h3>
+    <div id="filters">
+        <label for="filterName">Filtrar por nombre:</label>
+        <input type="text" id="filterName">
+
+        <label for="filterStatus">Filtrar por estado:</label>
+        <select id="filterStatus">
+            <option value="">Todos</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="completada">Completada</option>
+        </select>
+
+        <label for="filterDate">Filtrar por fecha límite:</label>
+        <input type="date" id="filterDate">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre de la Tarea</th>
+                <th>Descripción</th>
+                <th>Fecha Límite</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="taskList">
+            <!-- Aquí se mostrarán las tareas -->
+        </tbody>
+    </table>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
