@@ -44,3 +44,67 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Credenciales incorrectas. Inténtalo de nuevo.');
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Simulamos tareas almacenadas en localStorage
+    let tasks = [
+        { name: "Tarea 1", description: "Descripción 1", dueDate: "2024-08-20", status: "pendiente" },
+        { name: "Tarea 2", description: "Descripción 2", dueDate: "2024-08-21", status: "completada" },
+        { name: "Tarea 3", description: "Descripción 3", dueDate: "2024-08-22", status: "pendiente" }
+    ];
+
+    // Almacenamos las tareas en localStorage si no existen
+    if (!localStorage.getItem('tasks')) {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    } else {
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+
+    function displayTasks(filteredTasks) {
+        let taskList = document.getElementById('taskList');
+        taskList.innerHTML = '';
+
+        filteredTasks.forEach(task => {
+            let row = `
+                <tr>
+                    <td>${task.name}</td>
+                    <td>${task.description}</td>
+                    <td>${task.dueDate}</td>
+                    <td>${task.status}</td>
+                </tr>
+            `;
+            taskList.innerHTML += row;
+        });
+    }
+
+    function filterTasks() {
+        let filterName = document.getElementById('filterName').value.toLowerCase();
+        let filterStatus = document.getElementById('filterStatus').value;
+        let filterDate = document.getElementById('filterDate').value;
+
+        let filteredTasks = tasks.filter(task => {
+            let matchesName = task.name.toLowerCase().includes(filterName);
+            let matchesStatus = filterStatus === '' || task.status === filterStatus;
+            let matchesDate = filterDate === '' || task.dueDate === filterDate;
+
+            return matchesName && matchesStatus && matchesDate;
+        });
+
+        displayTasks(filteredTasks);
+    }
+
+    // Mostrar todas las tareas inicialmente
+    displayTasks(tasks);
+
+    // Filtrar tareas cuando los filtros cambian
+    document.getElementById('filterName').addEventListener('input', filterTasks);
+    document.getElementById('filterStatus').addEventListener('change', filterTasks);
+    document.getElementById('filterDate').addEventListener('change', filterTasks);
+
+    // Funcionalidad de cerrar sesión
+    document.getElementById('logoutButton').addEventListener('click', function() {
+        alert('Cerrando sesión...');
+        window.location.href = 'login.html';
+    });
+});
