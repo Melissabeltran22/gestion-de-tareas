@@ -6,14 +6,28 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     let password = document.getElementById('password').value;
     let department = document.getElementById('department').value;
 
+    // Expresiones regulares
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,}$/; // Al menos 4 caracteres, 1 mayúscula y 1 número
+    const nameRegex = /^[a-zA-Z\s]+$/;
+
     if (!name || !email || !password || !department) {
         alert('Por favor, completa todos los campos.');
         return;
     }
 
-    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (!emailPattern.test(email)) {
+    if (!emailRegex.test(email)) {
         alert('Por favor, ingresa un correo electrónico válido.');
+        return;
+    }
+
+    if (!passwordRegex.test(password)) {
+        alert('La contraseña debe tener al menos 4 caracteres, incluir una mayúscula y un número.');
+        return;
+    }
+
+    if (!nameRegex.test(name)) {
+        alert('El nombre solo debe contener letras y espacios.');
         return;
     }
 
@@ -23,7 +37,6 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     localStorage.setItem('users', JSON.stringify(users));
 
     alert('Usuario registrado exitosamente!');
-
     window.location.href = 'login.html'; // Redirige a la página de inicio de sesión
 });
 
@@ -33,6 +46,14 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
+
+    // Expresiones regulares
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        alert('Por favor, ingresa un correo electrónico válido.');
+        return;
+    }
 
     let users = JSON.parse(localStorage.getItem('users')) || [];
     let user = users.find(u => u.email === email && u.password === password);
@@ -44,7 +65,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Credenciales incorrectas. Inténtalo de nuevo.');
     }
 });
-
 
 document.addEventListener('DOMContentLoaded', function() {
     // Simulamos tareas almacenadas en localStorage
