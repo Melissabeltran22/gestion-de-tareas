@@ -1,3 +1,6 @@
+import { getTasks, saveTasks, addTask, filterTasks, deleteTask } from './taskModel.js';
+
+// Registro de Usuario
 document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Evita que el formulario se envíe automáticamente
 
@@ -8,7 +11,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
 
     // Expresiones regulares
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,}$/; // Al menos 4 caracteres, 1 mayúscula y 1 número
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,}$/;
     const nameRegex = /^[a-zA-Z\s]+$/;
 
     if (!name || !email || !password || !department) {
@@ -31,7 +34,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         return;
     }
 
-    // Si todo está bien, almacenamos los datos en localStorage
+    // Almacenamos los datos en localStorage
     let users = JSON.parse(localStorage.getItem('users')) || [];
     users.push({ name, email, password, department });
     localStorage.setItem('users', JSON.stringify(users));
@@ -40,14 +43,13 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     window.location.href = 'login.html'; // Redirige a la página de inicio de sesión
 });
 
-
+// Inicio de Sesión
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Evita que el formulario se envíe automáticamente
 
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
 
-    // Expresiones regulares
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
@@ -66,21 +68,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     }
 });
 
+// Panel de Control
 document.addEventListener('DOMContentLoaded', function() {
-    // Simulamos tareas almacenadas en localStorage
-    let tasks = [
-        { name: "Tarea 1", description: "Descripción 1", dueDate: "2024-08-20", status: "pendiente" },
-        { name: "Tarea 2", description: "Descripción 2", dueDate: "2024-08-21", status: "completada" },
-        { name: "Tarea 3", description: "Descripción 3", dueDate: "2024-08-22", status: "pendiente" }
-    ];
-
-    // Almacenamos las tareas en localStorage si no existen
-    if (!localStorage.getItem('tasks')) {
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'));
-    }
-
     function displayTasks(filteredTasks) {
         let taskList = document.getElementById('taskList');
         taskList.innerHTML = '';
@@ -98,29 +87,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function filterTasks() {
+    function filterTasksHandler() {
         let filterName = document.getElementById('filterName').value.toLowerCase();
         let filterStatus = document.getElementById('filterStatus').value;
         let filterDate = document.getElementById('filterDate').value;
 
-        let filteredTasks = tasks.filter(task => {
-            let matchesName = task.name.toLowerCase().includes(filterName);
-            let matchesStatus = filterStatus === '' || task.status === filterStatus;
-            let matchesDate = filterDate === '' || task.dueDate === filterDate;
-
-            return matchesName && matchesStatus && matchesDate;
-        });
-
+        let filteredTasks = filterTasks({ name: filterName, status: filterStatus, dueDate: filterDate });
         displayTasks(filteredTasks);
     }
 
     // Mostrar todas las tareas inicialmente
-    displayTasks(tasks);
+    displayTasks(getTasks());
 
     // Filtrar tareas cuando los filtros cambian
-    document.getElementById('filterName').addEventListener('input', filterTasks);
-    document.getElementById('filterStatus').addEventListener('change', filterTasks);
-    document.getElementById('filterDate').addEventListener('change', filterTasks);
+    document.getElementById('filterName').addEventListener('input', filterTasksHandler);
+    document.getElementById('filterStatus').addEventListener('change', filterTasksHandler);
+    document.getElementById('filterDate').addEventListener('change', filterTasksHandler);
+
+    // Adición de tarea
+    document.getElementById('addTaskButton').addEventListener('click', function() {
+        const name = document.getElementById('taskName').value;
+        const description = document.getElementById('taskDescription').value;
+        const dueDate = document.getElementById('taskDueDate').value;
+        const status = document.getElementById('taskStatus').value;
+
+        addTask(name, description, dueDate, status);
+        displayTasks(getTasks());
+    });
 
     // Funcionalidad de cerrar sesión
     document.getElementById('logoutButton').addEventListener('click', function() {
