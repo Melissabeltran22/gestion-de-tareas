@@ -1,25 +1,89 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ecf0f1;
-    color: #2c3e50;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+header {
+    background-color: #34495e;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav {
+    display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.logo {
+    color: #ecf0f1;
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-right: auto;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    margin: 0;
+}
+
+.nav-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.nav-links a:hover {
+    color: #3498db;
+    transform: translateY(-2px);
+}
+
+/* Login Form Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 120px); 
+    padding: 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+
 }
 
 h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
     color: #2c3e50;
-}
-
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
 }
 
 label {
@@ -29,98 +93,174 @@ label {
     font-weight: bold;
 }
 
-input[type="text"],
 input[type="email"],
 input[type="password"],
-input[type="submit"] {
+button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
-input[type="submit"] {
-    background-color: #2980b9;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-}
-
-input[type="submit"]:hover {
-    background-color: #3498db;
+input[type="email"],
+input[type="password"] {
+    font-size: 1em;
 }
 
 button {
-    background-color: #2980b9;
+    background-color: #3498db;
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
+    border: none;
+    font-size: 1em;
 }
 
 button:hover {
-    background-color: #3498db;
+    background-color: #2980b9;
 }
 
-/* Estilo para el Panel de Control */
+/* Footer Styles */
+footer {
+    background-color: #34495e;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #ecf0f1;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.6em;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    button {
+        padding: 10px;
+    }
+}
+
+/* Control Panel Styles */
 h3 {
     color: #2c3e50;
-    margin-top: 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    font-weight: 600;
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 10px;
+    text-align: center;
 }
 
 #filters {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
 }
 
 #filters label {
-    margin-right: 10px;
-    font-weight: bold;
+    font-weight: 500;
+    color: #2c3e50;
+    text-align: center;
 }
 
 #filters input, #filters select {
-    padding: 8px;
-    margin-right: 10px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 1em;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+#filters input:focus, #filters select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    outline: none;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
 
 table, th, td {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
 }
 
 th, td {
-    padding: 12px;
+    padding: 15px;
     text-align: left;
+    font-size: 1em;
 }
 
 th {
     background-color: #2980b9;
     color: white;
+    font-weight: bold;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f9f9f9;
 }
 
-/* Estilos para la página de bienvenida */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #filters {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #filters input, #filters select {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    table {
+        font-size: 0.9em;
+    }
+}
+
+/* Welcome Page Styles */
 .container {
     text-align: center;
     margin-top: 100px;
-}
-
-h1 {
-    color: #2c3e50;
-    margin-bottom: 20px;
 }
 
 p {
@@ -137,8 +277,145 @@ p {
     text-decoration: none;
     border-radius: 4px;
     margin: 0 10px;
+    transition: background-color 0.3s;
+}
+
+.buttons .btn-primary {
+    background-color: #3498db;
+}
+
+.buttons .btn-secondary {
+    background-color: #2ecc71;
+}
+
+.buttons .btn-info {
+    background-color: #1abc9c;
 }
 
 .buttons .btn:hover {
     background-color: #3498db;
+}
+
+/* Header Styles */
+header {
+    max-height: 50px;
+    max-width: 100%;
+    background-color: #284059;
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.logo {
+    color: #1096b8;
+    font-size: 0.9em;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Hero Section Styles */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./astronomy-1867616_1280.jpg') no-repeat center center/cover;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #ecf0f1;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #b7cbcd;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .buttons .btn {
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 80px 10px;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero p {
+        font-size: 0.875rem;
+    }
+
+    .buttons .btn {
+        padding: 6px 12px;
+    }
+
+    form {
+        width: 90%;
+    }
 }
